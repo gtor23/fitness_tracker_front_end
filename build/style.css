@@ -1,0 +1,319 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(221, 241, 235);
+}
+
+#app{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Aldrich', sans-serif;
+}
+
+.navi{
+    font-family: 'Aldrich', sans-serif;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.essentials{
+    margin-left: 20px;
+
+}
+
+.logreg{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.formlog, .formreg{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.formreg{
+    margin-bottom: 10px;
+}
+
+.d1{
+    margin-right: 16px;
+
+}
+
+.d1, .d2{
+    margin-top: 3px;
+}
+
+.registration {
+    padding-left: 5px;
+}
+
+.off{
+    margin-right: 20px;
+    height: 25px;
+    width: 70px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: orangered;
+}
+
+.credential1, .credential2{
+    margin-right: 3px;
+    height: 25px;
+    padding: 2px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.b1{
+    height: 25px;
+    width: 50px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.links{
+    margin: 0 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px;
+}
+
+.hometitle{
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.6rem;
+}
+
+/* ---------------------------Routines------------------------------- */
+
+
+.routines{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.routinestitle{
+    display: flex;
+    font-size: 3rem;
+    justify-content: center;
+    margin: 15px 0px;
+}
+
+.routinecell{
+    background-color: rgb(252, 199, 102);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    width: 1200px;
+}
+
+ .activityinfo{
+    margin-left: 20px;
+}
+
+
+.a1, .a2, .a3, .creatorsactivities{
+    margin-bottom: 5px;
+
+}
+
+.creatorsactivities{
+    font-size: 0.9rem;
+}
+
+.a3{
+    color: rgb(7, 104, 230);
+}
+
+li span{
+    position: relative;
+    left: -5px;
+} 
+
+.none{
+    color: red;
+}
+
+/* ---------------------Activities--------------------- */
+
+.activitiestitle{
+    text-align: center;
+    font-size: 3rem;
+    margin: 15px 0px;
+}
+
+.tocreate{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.activities{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activitycell{
+    background-color: rgb(252, 199, 102);
+    border-radius: 10px;
+    border: 2px solid black;
+    width: 1000px;
+    padding: 5px 0 5px 20px;
+    margin-bottom: 10px;
+}
+
+.z1{
+    margin-bottom: 5px;
+}
+
+.z2{
+    font-size: 1.1rem;
+}
+
+.activityform{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.s1{
+    margin: 0 10px;
+}
+
+.activitybutton{
+    margin-left: 10px;
+    width: 55px;
+}
+
+.activityname, .activitydescription{
+    margin-left: 5px;
+    height: 20px;
+}
+
+/* ---------------My routines -------------*/
+
+
+.myroutines{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.myroutinestitle{
+    display: flex;
+    font-size: 3rem;
+    justify-content: center;
+    margin: 35px 0 15px 0;
+}
+
+.myroutinecell{
+    background-color: rgb(252, 199, 102);
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 1200px;
+    padding: 10px 0 10px 20px;
+    margin-bottom: 10px;
+}
+
+.t1{
+    margin-bottom: 5px;
+}
+
+.t2{
+    margin-bottom: 10px;
+}
+
+.edit{
+
+    margin: 0 10px 15px 0;
+    width: fit-content;
+    padding: 0 5px;
+}
+
+.delete{
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: red;
+    width: fit-content;
+    padding: 0 5px;
+}
+
+.details{
+    margin: 10px 15px 10px 0;
+}
+
+.dropdown{
+    width: 300px;
+
+}
+
+.makeroutine{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.createrotuinetitle{
+    font-size: 3rem;
+    margin-bottom: 5px;
+}
+
+#selectactivity{
+    width: 180px;
+}
+
+.routineform{
+    display: flex;
+    
+}
+
+.foradd{
+    display: flex;
+    align-items: center;
+}
+
+.u1, .u2{
+    margin-right: 10px;
+}
+
+.r2{
+    margin-right: 5px;
+}
+
+.counter, .duration{
+    width: 70px;
+}
+
+.t3, .t4, #selectactivity, .counter, .duration{
+    margin-right: 5px;
+}
+
+.createsub, .addroutine{
+    width: fit-content;
+    padding: 0 5px;
+}
