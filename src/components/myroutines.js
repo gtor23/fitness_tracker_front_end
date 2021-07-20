@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Redirect, Link} from 'react-router-dom'
 import {userRoutines, updateRoutine, deleteRoutine, addActivityToRoutine, updateRoutineActivity, deleteRoutineActivity} from '../api'
-import EditRoutine from './editroutine'
 const MyRoutines = (props) => {
 
     const [theUserRoutines, setTheUserRoutines] = useState([]);
@@ -9,23 +8,14 @@ const MyRoutines = (props) => {
     const [durationCount, setDurationCount] = useState();
     const [routineId, setRoutineId] = useState();
 
-    // const [showEdit, setShowEdit] = useState(false);
-    // const [hack, setHack] = useState(1)
+    const [rend, setRend] = useState(1)
 
-    const {loggedIn, currentUser, activities} = props;
-
-    // console.log('trap',theUserRoutines)
-
-    console.log('dddd', activityId)
-
-    // const makeEdit = async () => {
-    //     setShowEdit(true)
-    // }
+    const {loggedIn, currentUser, activities, newRoutine} = props;
 
     const handleUpdate = async (name, goal, id) => {
         try{
             const routines = await updateRoutine(name, goal, id);
-            window.location.reload()
+            setRend(rend + 1)
         } catch(error){
             console.error
         }
@@ -35,30 +25,34 @@ const MyRoutines = (props) => {
     const handleDeleteRoutine = async (id) => {
         try{
             const routines = await deleteRoutine(id);
-            window.location.reload()
+            setRend(rend + 1)
         }catch (error){
             console.error(error)
         }
     }
 
     const handleActivityAdd = async (event) =>{
-        event.preventDefault();
+
+    if (durationCount == undefined ){
+        return alert('Count and Duration required')
+    }
 
         const {duration, count} = durationCount;
+   
 
         try{
 
             const response = await addActivityToRoutine(routineId, activityId, count, duration);
 
+ 
             if(!response.id){
                 return alert('Error')
             }
 
+            setRend(rend + 1)
             setRoutineId(null);
             setDurationCount(null);
             setActivityId(null)
-
-            window.location.reload()
 
         } catch(error){
             console.error(error)
@@ -68,7 +62,8 @@ const MyRoutines = (props) => {
     const handleActivityUpdate = async (routineId, count, duration) => {
         try{
             const routines = await updateRoutineActivity(routineId, count, duration);
-            window.location.reload()
+            setRend(rend + 1)
+  
         }catch (error){
             console.error(error);
         }
@@ -77,7 +72,8 @@ const MyRoutines = (props) => {
     const handleActivityDelete = async (id) => {
         try{
             const activity = await deleteRoutineActivity(id);
-            window.location.reload()
+            setRend(rend + 1)
+ 
         } catch (error){
             console.error(error);
         }
@@ -89,15 +85,20 @@ const MyRoutines = (props) => {
         }
         try{
             const routines = await userRoutines(currentUser);
-            // console.log('hhhh', routines)
+
             setTheUserRoutines(routines);
-            // console.log('pop',theUserRoutines)
+
         }catch (error) {
             console.error(error);
         }
     }
     
-    useEffect(getUserRoutines, [currentUser, activities])
+
+
+    useEffect(() => {
+        getUserRoutines()
+
+    }, [currentUser, rend, newRoutine])
     
 
 
@@ -108,23 +109,17 @@ const MyRoutines = (props) => {
 
     return(
         <>
-        {/* <div> */}
+
         <h1 className = 'myroutinestitle'>My Routines</h1>
-        {/* </div> */}
-
-
-        {/* {showEdit ? <EditRoutine showEdit = {showEdit} setShowEdit = {setShowEdit}/> : null} */}
 
         <div className = 'myroutines'>
         {theUserRoutines ? (
             theUserRoutines.map((routine, index) => {
                 return (
                     <div className = 'myroutinecell' key = {index}>
-                        <h2>{routine.name}</h2>
-                        <h3>{routine.goal}</h3>
-                    
-                
-                {/* <button type = 'button' className = 'edit' onClick = {() => makeEdit()}> */}
+                        <h2 className = 't1'>{routine.name}</h2>
+                        <h3 className = 't2'>{routine.goal}</h3>
+
                 <button type = 'button' className = 'edit' onClick = {() => handleUpdate(routine.name, routine.goal, routine.id)}>
                     Edit Routine Name or Goal
                 </button>
@@ -146,30 +141,28 @@ const MyRoutines = (props) => {
                                 <li><span> Duration: {activity.duration}</span> </li>
                                 <li><span>Count: {activity.count} </span></li>
 
-                                <button type = 'button' 
-                                onClick = {() =>handleActivityUpdate(activity.routineActivityId, activity.duration, activity.count)}>
+                                <button className = 'edit' type = 'button' onClick = {() =>handleActivityUpdate(activity.routineActivityId, activity.duration, activity.count)}>
                                     Update Duration or Count
                                 </button>
 
-                                <button type = 'button'
-                                onClick = {() => handleActivityDelete(activity.routineActivityId)}>
+                                <button className = 'delete' type = 'button' onClick = {() => handleActivityDelete(activity.routineActivityId)}>
                                     Delete Routine Activity
                                 </button>
 
                             </ul>
                         )
                     })
-                ) : <h3>No activities for this routine</h3>}
-                
+                ) : <h3 className = 't2 none'>No activities for this routine</h3>}
 
-                
-                <form onSubmit = {handleActivityAdd}>
-                    <label>Add Routine Activity:</label>
+
+                <form className = 'foradd' >
+                    
+                    <label className = 't3' >Add Routine Activity:</label>
                     <select name ='Activities' id = 'selectactivity' 
-                    value = {activityId} 
                     onChange = {(event) => {setRoutineId(routine.id); setActivityId(event.target.value); return}}>
+                    
                         
-                        <option className = 'dropdown' value ='null'>Select Activity</option>
+                        <option className = 'dropdown'  value ='null'>Select Activity</option>
                         {
                             activities.map((activity, index) => {
                                 return (
@@ -182,26 +175,30 @@ const MyRoutines = (props) => {
 
                     </select>
 
-                    <label>Count:</label>
-                    <input type = 'number' min = '1' placeholder ='Count' 
-                    onChange = {(event) => setDurationCount({...durationCount, count: event.target.value})}
-                    />
-                    
 
-
-                    <label>Duration:</label>
-                    <input type = 'number' min = '1' placeholder = 'Duration'
-                    onChange = {(event) => setDurationCount({...durationCount, duration: event.target.value})}
-                    />
                     
-                    <button className = 'addroutine' type = 'submit'>Submit</button>
+                        <div className = 'forcount'>
+                            <label className = 't4'>Count:</label>
+                            <input className = 'counter' type = 'number' min = '1' placeholder ='Count' 
+                            onChange = {(event) => setDurationCount({...durationCount, count: event.target.value})}
+                            />
+                        </div>
+
+                        <div className = 'forduration'>
+                            <label className = 't4'>Duration:</label>
+                            <input className = 'duration' type = 'number' min = '1' placeholder = 'Duration'
+                            onChange = {(event) => setDurationCount({...durationCount, duration: event.target.value})}
+                            />
+                        </div>
+                    
+                        <button className = 'addroutine' type = 'button' onClick = {(event) => handleActivityAdd(event)}>Submit</button>
+                  
                 </form>
-
                 </div>
                 
                 )
             })
-        ): <h2>No routines made by you</h2>}
+        ): <h2 className = 'none'>No routines made by you</h2>}
 
         </div>
 

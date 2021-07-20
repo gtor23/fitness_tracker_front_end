@@ -2,15 +2,12 @@ import React, {useState, useEffect} from 'react'
 
 import {createRoutines, allRoutines} from '../api'
 
-import {Redirect} from 'react-router-dom'
 
+const MakeRoutines = (props) =>{
 
-const MakeRoutines = () =>{
+    const {newRoutine, setNewRoutine} = props
 
-    const [newRoutine, setNewRoutine] = useState();
-    const [finished, setFinished] = useState(false);
-
-    const handleMake = (event) => {
+    const handleMake = async (event) => {
         event.preventDefault();
 
         const [name, goal] = event.target;
@@ -22,49 +19,40 @@ const MakeRoutines = () =>{
                 isPublic: true
             };
 
-            setNewRoutine(addRoutine);
+            try{
+            const response = await createRoutines(addRoutine);
+            setNewRoutine(response);
+            // setNewRoutine([response, ...newRoutine]);
+
+            } catch (error){
+                console.error(error)
+            }
+
         }else{
             alert('All fields must be filled in')
         }
     }
-
-    useEffect(async () => {
-        if (newRoutine){
-            try{
-                const response = await createRoutines(newRoutine);
-                console.log('cap',response)
-                setFinished(true)
-            }catch (error){
-                console.error(error)
-            }finally{
-                // <Redirect to = '/' />
-                window.location.reload()
-            }
-        }
-    }, [newRoutine])
-    
-    if (finished){
-        // return <Redirect to ='/' />
-        window.location.reload()
-    }else{
 
         return (
             <>
             <div className = 'makeroutine'>
             <h1 className = 'createrotuinetitle'> Create Routine</h1>
             <form className = 'routineform' onSubmit = {handleMake}>
-                <label>Name:</label>
-                <input type ='text' />
+                <div className = 'u1'>
+                    <label className = 'r2'>Name:</label>
+                    <input type ='text' />
+                </div>
 
-                <label>Goal:</label>
-                <input type ='text' />
+                <div className = 'u2'>
+                    <label className = 'r2'>Goal:</label>
+                    <input type ='text' />
+                </div>
 
-                <button type ='submit'>Submit</button>
+                <button className = 'createsub' type ='submit'>Submit</button>
             </form>
             </div>
             </>
         )
-    }
 
 }
 

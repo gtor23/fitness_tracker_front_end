@@ -4,10 +4,7 @@ import {allRoutines} from '../api'
 const Routines = () => {
 
     const [gotRoutines, setGotRoutines] = useState([]);
-    // console.log('--qar', gotRoutines)
-
-    
-    
+      
     const getAllRoutines = async () => {
         try{
 
@@ -33,9 +30,7 @@ const Routines = () => {
                     <h2 className = 'a1'> Routine: {routine.name} </h2>
                     <h3 className = 'a2'> Goal: {routine.goal} </h3>
                     <h4 className = 'a3'>Creator: {routine.creatorName} </h4>
-                    {/* <br/>  */}
-                    {/* remove breake line later */}
-                
+
                 <div className = 'activityinfo'>
                     {routine.activities[0] ? 
                     
@@ -50,16 +45,15 @@ const Routines = () => {
                                     <li><span>Duration: {anActivity.duration}</span></li>
                                     <li><span>Count: {anActivity.count}</span></li>
                                 </ul>
-                                {/* <br/> */}
+
                             </h5>
                            
                         )
-                    }) : <p>No activities for this routine</p>
+                    }) : <p className = 'none'>No activities for this routine</p>
                     
                          
                     }
                 </div>
-                    {/* <br/> */}
 
                 </div>
             )

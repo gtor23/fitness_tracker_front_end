@@ -1,14 +1,12 @@
 import React, {useState} from 'react'
 import {storeToken} from '../auth'
 
-//do we need anything regrding the token in login file? 
 
 const Login = (props) => {
 
     const [user, setUser] = useState('');
     const {setCurrentUser, loggedIn, setIsLoggedIn} = props;
 
-    // console.log('blah',setCurrentUser)
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -24,8 +22,7 @@ const Login = (props) => {
         })
 
         const result = await response.json();
-        // console.log(typeof result.token)
-
+ 
         if (result.user){
             alert(result.message);
             setIsLoggedIn(result.token);
@@ -40,7 +37,7 @@ const Login = (props) => {
     return (
         <form className = 'formlog' onSubmit = {handleLogin}>
 
-            {/* <h1> Login </h1> */}
+
             <label className = 'd1'> Log-In: </label>
             <div className = 'logger'>
                 <input type ='text' className = 'credential1' 
